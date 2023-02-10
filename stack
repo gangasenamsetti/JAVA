@@ -1,0 +1,36 @@
+//STACK--->stack is LAST IN FIRST OUT(LIFO)
+import java.util.ArrayList;
+class HelloWorld {
+    public static void addElement(int ele,ArrayList<Integer>stack)
+    {
+        stack.add(ele);
+    }
+    public static void popElement(ArrayList<Integer>stack)
+    {
+        stack.remove(stack.size()-1);
+    }
+    public static void main(String[] args) {
+        ArrayList<Integer>stack=new ArrayList<>();
+        // stack.add(10);
+        // stack.add(20);
+        // stack.add(30);
+        // stack.add(40);
+        addElement(5,stack);
+        addElement(10,stack);
+        addElement(15,stack);
+        addElement(20,stack);
+        addElement(30,stack);
+        for(int e:stack){
+            System.out.print(e+" ");
+        }
+        System.out.println();
+        popElement(stack);
+        popElement(stack);
+        for(int e:stack){
+            System.out.print(e+" ");
+        }
+    }
+}
+o/p:
+5 10 15 20 30 
+5 10 15 
