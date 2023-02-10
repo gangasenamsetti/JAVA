@@ -1,0 +1,46 @@
+//QUEUE---->queue is first in first out(FIFO)
+import java.util.ArrayList;
+class Main
+{
+    public static void addElement(int ele,ArrayList<Integer>queue)
+    {
+        queue.add(ele);
+    }
+    public static void popElement(int ind,ArrayList<Integer>queue)
+    {
+        queue.remove(0);
+    }
+ 
+    public static void main(String args[])
+    {
+        ArrayList<Integer>queue=new ArrayList<>();
+        addElement(10,queue); //
+        addElement(20,queue);
+        addElement(30,queue);
+        addElement(40,queue);
+        addElement(50,queue);
+        for(int ele:queue){
+            System.out.print(ele+" ");
+        }
+        System.out.print("\n");
+        popElement(0,queue);
+        popElement(0,queue);
+        for(int ele:queue){
+            System.out.print(ele+" ");
+        }
+        System.out.print("\n");
+        if(queue.size()==0){
+            System.out.println("Queue is empty");
+            
+        }
+        else{
+            System.out.println("Queue is not empty");
+        }
+        
+        
+    }
+}
+o/p:
+10 20 30 40 50 
+30 40 50 
+Queue is not empty
