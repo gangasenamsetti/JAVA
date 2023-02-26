@@ -1,0 +1,65 @@
+public class T1 {
+    static class Node
+    {
+        int val;
+        Node left,right;
+        Node(int val){
+            this.val=val;
+            left=right=null;
+        }
+    }
+    public static void InOrder(Node root)
+    {
+        if(root==null) return;
+        InOrder(root.left);
+        System.out.print(root.val+" ");
+        InOrder(root.right);
+    }
+    public static void preOrder(Node root)
+    {
+      if(root!=null){
+        System.out.print(root.val+" ");
+        preOrder(root.left);
+        preOrder(root.right);
+      }
+    }
+    public static void inOrder(Node root)
+    {
+        if(root!=null){
+            inOrder(root.left);
+            System.out.print(root.val+" ");
+            inOrder(root.right);
+        }
+    }
+   
+    public static void postOrder(Node root)
+    {
+        if(root!=null){
+            postOrder(root.left);
+            postOrder(root.right);
+            System.out.print(root.val+" ");
+        }
+    }
+    public static void main(String args[])
+    {
+        Node root=new Node(10);
+        Node first=new Node(20);
+        root.left=first;
+        Node second=new Node(30);
+        root.right=second;
+        Node third=new Node(40);
+        root.right.right=third;
+        Node fourth=new Node(50);
+        root.right.left=fourth;
+        inOrder(root);
+        System.out.println();
+        preOrder(root);
+        System.out.println();
+        postOrder(root);
+
+    }
+}
+o/p:
+20 10 50 30 40 
+10 20 30 50 40
+20 50 40 30 10
