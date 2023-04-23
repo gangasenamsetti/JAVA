@@ -1,0 +1,463 @@
+Input and Output:
+Input: How to read the input from the user:
+Scanner is a class which is available in java.util package.
+
+Scanner sc=new Scanner(System.in); // Object Creation
+
+nextByte() 	- To read the byte data
+nextShort()	- To read the short data
+nextInt()	- To read the int data
+nextLong() 	- To read the long data
+nextFloat() - To read the float value
+nextDouble()- To read the double value
+nextLine()	- To read a line of text
+next()		- To read a word
+next().charAt(0)- To read a character 
+
+How to print the data on the screen:
+====================================
+1) To display the static message
+   System.out.println("Hello World");
+   printf("Hello World");
+   cout<<"Hello World";
+
+2) To display the value of a variable
+   int a=20;
+   System.out.println(a);   //20
+
+3) To display the value + message
+   String name="Ramesh";
+   int age=35;
+   Output:
+   Your name is: Ramesh    => "Your Name is: " + value of name
+   Your Age is: 35
+   
+   System.out.println("Your Name is: "+name);
+   System.out.println("Your Age is: "+age);
+   
+
+While printing the floating point numbers after decimal point print only 2 digits.
+float pi=3.142345f;
+System.out.println(pi);
+
+System.out.format("%.2f",pi);
+printf("%.2f",pi);
+
+import java.util.Scanner;
+class InputDemo
+{
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		float pi;
+		pi=sc.nextFloat();
+		System.out.println(pi);
+		System.out.format("%.2f",pi);
+	}
+}
+========================================================
+Relationship between class and Object
+Object: It is nothing but anything that exist physically in the real world.
+
+Every Object having some set of properties and behaviours.
+Myself I am taking as object.
+Properties: Will describe object.
+     Id, name, height, weight, age, gender, address,......
+	 [variables]
+	 
+Behaviours:  actions performed by object.
+     eating(), running(), walking(), talking()....
+     [methods]
+	 
+Class: A group of similar objects.
+       A class is template or blue print for creating many objects.
+	   
+	   Class doesn't exist physically.
+	   
+class Test1
+{
+	public void show()				//non static
+	{
+		System.out.println("RRR");
+	}
+	public static void display()    // static
+	{
+		System.out.println("KGF");
+	}
+	public static void main(String args[])
+	{
+       Test1.display();
+	   //Test1.show();  Compiletime error
+	   Test1 t1=new Test1();
+	   t1.show();
+	}
+}
+//Non static properites are allowed to access using object.
+//Static properties are allowed to access using classname.
+
+Practice Programs:
+==================
+1) Program to find the no of digits of a given number.
+Input: 2564
+Output: 4
+
+import java.util.Scanner;
+class DigitsCount
+{
+	public static int findDigits(int x)
+	{
+         return (int)Math.log10(x)+1;
+	}
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		int n;
+		n=sc.nextInt();
+		int d=DigitsCount.findDigits(n);
+		System.out.println(d);
+	}
+}
+
+2) Program to display the digits of a given number in words. 
+Input: 245
+Output: Two Four Five
+
+import java.util.Scanner;
+class PrintDigits
+{
+	public static void findDigits(int x)
+	{
+      int d=(int)Math.log10(x);
+	  while(x>0)
+		{
+		   int r=x/(int)Math.pow(10,d);
+		   x=x%(int)Math.pow(10,d);
+		   switch(r)
+			{
+			   case 1:
+				    System.out.print("One ");
+			   	    break;
+				case 2:
+					System.out.print("Two ");
+				    break;
+				case 3:
+					System.out.print("Three ");
+				    break;
+			}
+		   d--;
+		}
+	}
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		int n;
+		n=sc.nextInt();
+		PrintDigits.findDigits(n);
+		
+	}
+}
+
+
+How to return a value from a method:
+=====================================
+3) Program to find the given number is palindrome or not.
+Input: 2553
+Output: Palindrome
+
+
+
+4) Program to find the given String is palindrome or not.
+Input: liril
+Output: Palindrome
+import java.util.Scanner;
+class PalindromeString
+{
+    public static boolean isPalindrome(String s)
+	{
+		int n=s.length();
+		for(int i=0;i<n/2;i++)
+		{
+			if(s.charAt(i)!=s.charAt(n-i-1))
+				return false;
+		}
+		return true;
+	}
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		String s1;
+		s1=sc.next();
+		if(isPalindrome(s1))
+			System.out.println(s1+" is a palindrome");
+		else
+			System.out.println(s1+" is not a palindrome");
+	}
+}
+
+5) Program to find the given two Strings are anagrams or not.
+Input: silent
+	   listen
+Output: anagrams
+
+
+
+6) Program to find the given input is having valid paranthesis or not.
+Input: ([{()}])
+Output: Yes
+
+
+
+
+
+How to return a group of values from a method:
+==============================================
+7) Program to find and return the min and max values of an array from a method.
+Input:
+5
+2 3 1 5 4
+Output:
+1 5
+Explanation: 1 and 5 are min and max of the array respectively.
+
+import java.util.Scanner;
+class MinMaxArray
+{
+   public static int[] findMinMax(int arr[],int size)
+	{
+	     //Write your logic here
+		 int minmax[]=new int[2];
+         int min=arr[0];
+		 for(int i=1;i<size;i++)
+		 {
+		    if(arr[i]<min)
+			  min=arr[i];
+		 }
+		 int max=arr[0];
+		 for(int i=1;i<size;i++)
+		 {
+            if(arr[i]>max)
+				max=arr[i];
+		 }
+
+		minmax[0]=min;
+		minmax[1]=max;
+		return minmax;
+
+	}
+
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+        int x[],n,i;
+		n=sc.nextInt();
+		x=new int[n];
+
+		for(i=0;i<n;i++)
+			x[i]=sc.nextInt();
+
+		int result[]=findMinMax(x,n);
+		System.out.println("Minimum = "+result[0]);
+		System.out.println("Maximum = "+result[1]);
+
+	}
+}
+D:\2022-23\Maersk Drive>java MinMaxArray
+6
+12 5 1 68 94 32
+Minimum = 1
+Maximum = 94
+
+-------------------------------------------------------
+8) Program to find the subarray whose sum of elements equals to k and print start and end index positions of an array.
+Input:
+6
+1 5 3 4 6 2
+8
+Output:
+1 2
+
+
+
+
+
+Pass by value and pass by reference:
+=====================================
+Pass by value: If I do modifications to the formal arguments that effect will not shown in the original arguments.
+All the primitive data type elements which are passed as a arguments are refered as pass by value.
+
+Pass by Reference: If I do modifications to the formal arguments that effect will be shown in the original arguments.
+All the objects, Arrays which are treated as pass by reference.
+
+class Test2
+{
+	public static void increment(int arr[],int p)
+	{
+		for(int i=0;i<arr.length;i++)
+			arr[i]=arr[i]+1;
+		p=p+10;
+
+	}
+	public static void main(String args[])
+	{
+		int x[]={10,20,30,40};
+		int n=10;
+		System.out.println("Before calling increment");
+		System.out.println(n);
+		for(int i=0;i<x.length;i++)
+			System.out.print(x[i]+" ");
+
+		increment(x,n);
+
+        System.out.println("\nAfter calling increment");
+		System.out.println(n);
+		for(int i=0;i<x.length;i++)
+			System.out.print(x[i]+" ");
+	}
+}
+D:\2022-23\Maersk Drive>java Test2
+Before calling increment
+10
+10 20 30 40
+After calling increment
+10
+11 21 31 41
+
+
+How to pass object as a parameter to a method:
+==============================================
+Previous Question: 
+Maximum Revenue Garage
+A Garage is represented as:
+class Garage
+{
+     public int bikes;
+	 public int cars;
+	 public int trucks;
+}
+
+Implement the function:
+static int MaxRevenue(Garage[] garages)
+{
+  //Write your code here
+}
+
+The function accepts an array "grades" of type Garage consisting of m elements as its argument. Each element of garage referring to the count of bikes, cars and trucks in a garage respectively. The cost of servicing a bike, car and truck are 100, 250 and 500 respectively. So find the maximum revenue generated by a garage.
+Revenue generated by garage = (100 * bikes)+(250 * cars)+(500*trucks)
+
+Note: 
+Return -1 if garages is null(or None in the case of python)
+
+Sample Input:
+4		->	Number of garages
+bikes 	cars	trucks
+6		8		2
+5		7		8
+14		10		11
+11		13		5
+Output:
+9400
+Explanation:
+Revenue generated by each garage:
+bikes 	cars	trucks	Revenue
+6		8		2		3600
+5		7		8		6250
+14		10		11		9400
+11		13		5		6850
+
+import java.util.Scanner;
+class Garage
+{
+	int bikes,cars,trucks;
+
+    public static int findMaxRevenue(Garage g[])
+	{
+		//write your logic
+		int max_revenue=0;
+		for(int i=0;i<g.length;i++)
+		{
+		 int revenue=g[i].bikes*100+g[i].cars*250+g[i].trucks*500;
+          if(revenue>max_revenue)
+			   max_revenue=revenue;
+		}
+		return max_revenue;
+	}
+	public static void main(String args[])
+	{
+        Scanner sc=new Scanner(System.in);
+		int m;
+		m=sc.nextInt();
+		Garage garage[]=new Garage[m];// array variable garage[0], garage[1],......
+		//int x[]=new int[size];
+		for(int i=0;i<m;i++)
+		{
+			garage[i]=new Garage(); // object creation
+			garage[i].bikes=sc.nextInt();
+			garage[i].cars=sc.nextInt();
+			garage[i].trucks=sc.nextInt();
+		}
+		int revenue=findMaxRevenue(garage);
+		System.out.println("Maximum revenue = "+revenue);
+	}
+
+
+}
+
+D:\2022-23\Maersk Drive>java Garage
+4
+6 8 2
+5 7 8
+14 10 11
+11 13 5
+Maximum revenue = 9400
+------------------------------------------------------
+Working with Arrays class:
+==========================
+It is used to do manipulations on arrays.
+       Arrays.sort(arr)
+       Arrays.sort(arr,start_index,end_index); 
+       Arrays.binarySearch(arr,ele)
+	   Arrays.binarySearch(arr,start_index,end_index,ele)
+       Arrays.equals(arr1,arr2)
+       Arrays.fill(arr,value)
+	   Arrays.fill(arr,start_index,end_index,value)
+	   Arrays.copyOf(arr,new_length)
+	   Arrays.copyOfRange(arr,from_index,end_index)
+
+
+
+
+Working with Collection Object:
+===============================
+1) ArrayList
+2) HashSet
+3) HashMap
+4) Collections
+	
+	Collections.sort(list) 		-> It sort the all the elements of that list.
+	Collections.copy(l1,l2) 	-> It is used to copy the list of objects from one list to another.
+	Collections.shuffle(l1)		-> It is used to rearrange all the elements of the list.
+	Collections.reverse(l1)		-> It is used to reverse the objects of the given list.
+	Collections.swap(l1,index1,index2) 
+    Collections.fill(l1,Object)
+	Collections.frequency(list,ele)
+	Collections.replaceAll(list,old_value,new_value)
+	Collections.max(list)
+	Collections.min(list)
+	Collections.rotate(list,how_many)
+	Collections.binarySearch(list,ele)
+	Collections.sort(list,Collections.reverseOrder())
+	
+	
+
+Some Important Topics:
+=====================
+Working with Strings
+Working with Arrays
+Working with static and non static properties
+Working with Array of Objects
+Working with how to pass object as a parameter to a method.
+Working with how to return object as a parameter from a method.
+Some basic knowledge on Collection classes like ArrayList, HashSet, HashMap etc.
+
+
+
