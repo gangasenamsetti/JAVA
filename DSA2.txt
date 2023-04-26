@@ -1,0 +1,479 @@
+Question 26:
+class Solution {
+    public boolean canJump(int[] nums) {
+        int n = nums.length;
+        int maxi = 0;
+        for (int i = 0; i < n; i++) {
+            if (i > maxi) {
+                return false;
+            }
+            maxi = Math.max(maxi, i + nums[i]);
+        }
+        return true;
+    }
+}
+________________________________________________
+Question 27:
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int n = n1 + n2;
+        int[] new_arr = new int[n];
+
+        int i=0, j=0, k=0;
+
+        while (i<=n1 && j<=n2) {
+            if (i == n1) {
+                while(j<n2) new_arr[k++] = nums2[j++];
+                break;
+            } else if (j == n2) {
+                while (i<n1) new_arr[k++] = nums1[i++];
+                break;
+            }
+
+            if (nums1[i] < nums2[j]) {
+                new_arr[k++] = nums1[i++];
+            } else {
+                new_arr[k++] = nums2[j++];
+            }
+        }
+
+        if (n%2==0) return (float)(new_arr[n/2-1] + new_arr[n/2])/2;
+        else return new_arr[n/2];
+    }
+}
+______________________________________
+QUESTION 29:
+public List<String> letterCombinations(String digits) {
+		LinkedList<String> ans = new LinkedList<String>();
+		if(digits.isEmpty()) return ans;
+		String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+		ans.add("");
+		for(int i =0; i<digits.length();i++){
+			int x = Character.getNumericValue(digits.charAt(i));
+			while(ans.peek().length()==i){
+				String t = ans.remove();
+				for(char s : mapping[x].toCharArray())
+					ans.add(t+s);
+			}
+		}
+		return ans;
+	}
+
+__________________________________________________________
+QUESTION 30:
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        String prefix = new String(strs[0]);
+        for (int i = 1; i < strs.length && !prefix.equals(""); i++) {
+            while (!prefix.equals("") && !strs[i].startsWith(prefix)) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+            }
+        }
+        return prefix;
+    }
+}
+_____________________________________________________________________
+QUESTION 31:
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        String openBrackets = "{([";
+        for(int i=0; i<s.length(); i++){
+            Character temp = s.charAt(i);
+            if(openBrackets.indexOf(temp)> -1){
+                stack.add(temp);
+            }else{
+                /* handles all cases for close brackets }]) */
+                if(stack.isEmpty()){
+                    return false;
+                }else if(helper(stack.peek())!=temp){
+                    return false;
+                }else{
+                    stack.pop();
+                }
+            }
+        }
+        return stack.empty() ? true : false;
+    }
+
+    private Character helper(Character left){
+        // methode returns what closing bracket should be on comparison with right bracket 
+        if(left == '('){
+            return ')';
+        }else if(left == '{'){
+            return '}';
+        }else{
+            return ']';
+        }
+    }
+}
+_________________________________________________________
+QUESTION 34:
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp1=head;
+        ListNode temp2=head.next;
+        while(temp1!=null && temp2!=null){
+            int t=temp2.val;
+            temp2.val=temp1.val;
+            temp1.val=t;
+            if(temp2.next!=null){
+                temp1=temp2.next;
+            }
+            else{
+                return head;
+            }
+            if(temp1.next!=null){
+                temp2=temp1.next;
+            }
+            else{
+                return head;
+            }
+            
+        }
+        return head;
+    }
+}
+__________________________________________
+QUESTION 36:
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        
+        int addIndex = 1; //index that unique characters will be inserted at
+
+        for(int i = 0; i < nums.length - 1; i++) {
+            
+            if(nums[i] < nums[i + 1]){ //if true, num[i + 1] is a new unique number
+              nums[addIndex] = nums[i + 1];
+              addIndex++;
+            }
+        }
+        return addIndex;
+    }
+}
+_______________________________
+QUESTION 37:
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[j] != val) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+            }
+        }
+        return i;
+    }
+}
+_______________________________________________
+QUESTION 38:
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int haylength=haystack.length();
+        int needlelength=needle.length();
+        if(haylength<needlelength)
+            return -1;
+        for(int i=0;i<=haystack.length()-needle.length();i++){
+            int j=0;
+            while(j<needle.length() && haystack.charAt(i+j)==needle.charAt(j))
+                j++;
+            if(j==needle.length()){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+___________________________________________________
+QUESTION 41:
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int break_point = -1;
+        int n = nums.length;
+        int i = n-2;
+
+        while(i>=0) {
+            if(nums[i]<nums[i+1]) {
+                break_point = i;
+                break;
+            }
+            i--;
+        }
+
+        if(break_point == -1) {
+            //System.out.println("Reversing");
+            for(int k=0 ; k<n/2 ; k++) {
+                int temp = nums[k];
+                nums[k] = nums[n-k-1];
+                nums[n-k-1] = temp;
+            }
+        }
+        else {
+
+            i = n-1;
+            while(i>0) {
+                if(nums[i]>nums[break_point]) {
+                    int temp = nums[i];
+                    nums[i] = nums[break_point];
+                    nums[break_point] = temp;
+                    break;
+                }
+                i--;
+            }
+
+            i = n-1;
+            break_point++;
+            while(break_point<i) {
+                int temp = nums[break_point];
+                nums[break_point] = nums[i];
+                nums[i] = temp;
+                break_point++;
+                i--;
+            }
+        }
+    }
+}
+_____________________________________________________
+QUESTION 43:
+class Solution {
+    public int search(int[] nums, int target) {
+        int low=0;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if (nums[mid] == target)
+                return mid; 
+
+            if (nums[low] <= nums[mid]) { 
+                if (nums[low] <= target && nums[mid] >= target)
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+            } else {
+                if (nums[mid] <= target && target <= nums[high])
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
+________________________________________________________
+QUESTION 44:
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+      int[] ans = {-1,-1};
+      int s = search(nums,target,true);
+      int e = search(nums,target,false);
+      ans[0] = s;
+      ans[1] = e;
+      return ans;
+        
+    }
+    public int search(int[] nums , int target , boolean FindFirst){
+        int s = 0;
+        int e = nums.length-1;
+        int ans = -1;
+        while(s<=e){
+        int mid = s+(e-s)/2;
+        if(nums[mid] < target) s = mid +1;
+        else if(nums[mid] > target) e = mid - 1;
+        else {
+            ans = mid;
+            if(FindFirst==true) e = mid -1;
+            else s = mid+1;  
+            }
+        }
+        return ans;
+    }
+}
+
+_______________________________________________________________
+QUESTION 45:
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length-1;
+
+        while (start <= end) {
+            int mid = start + (end-start)/2;
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] > target) end = mid-1;
+            else start = mid+1;
+        }
+
+        return start;
+    }
+}
+_______________________________________________________________
+question 49:
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        combin(res,new ArrayList<>(),0,candidates.length-1,target,candidates);
+        return res;
+    }
+    public void combin(List<List<Integer>> res,List<Integer> r,int left,int right,int target,int[] candidates){
+        if(r.stream().mapToInt(Integer::intValue).sum() == target){
+            List<Integer> temp = new ArrayList<>();
+            temp.addAll(r);
+            res.add(temp);
+            
+        }
+        else if(r.stream().mapToInt(Integer::intValue).sum() < target){
+            for(int i = left;i<=right;i++){
+                if(r.stream().mapToInt(Integer::intValue).sum() + candidates[i] <= target){
+                    r.add(candidates[i]);
+                    combin(res,r,i,right,target,candidates);
+                    r.remove(Integer.valueOf(candidates[i]));
+                }
+                else{
+                    return;
+                }
+            }
+        }
+    }
+}
+__________________________________________________________________________
+QUESTION 50:
+ public List<List<Integer>> combinationSum2(int[] cand, int target) {
+    Arrays.sort(cand);
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
+    List<Integer> path = new ArrayList<Integer>();
+    dfs_com(cand, 0, target, path, res);
+    return res;
+}
+void dfs_com(int[] cand, int cur, int target, List<Integer> path, List<List<Integer>> res) {
+    if (target == 0) {
+        res.add(new ArrayList(path));
+        return ;
+    }
+    if (target < 0) return;
+    for (int i = cur; i < cand.length; i++){
+        if (i > cur && cand[i] == cand[i-1]) continue;
+        path.add(path.size(), cand[i]);
+        dfs_com(cand, i+1, target - cand[i], path, res);
+        path.remove(path.size()-1);
+    }
+}
+____________________________________________________________________________
+QUESTION 51:
+class Solution {
+public int firstMissingPositive(int[] nums) {
+    int n = nums.length;
+   
+    for (int i = 0; i < n; i++) {
+        if (nums[i] <= 0 || nums[i] > n) {
+            nums[i] = n + 1;
+        }
+    }
+    
+    for (int i = 0; i < n; i++) {
+        int num = Math.abs(nums[i]);
+        if (num > n) {
+            continue;
+        }
+        num--; 
+        if (nums[num] > 0) { 
+            nums[num] = -1 * nums[num];
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        if (nums[i] >= 0) {
+            return i + 1;
+        }
+    }
+    
+    return n + 1;
+}
+}
+__________________________________________________
+QUESTION 56:
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        boolean [] visited = new boolean[nums.length];
+        FindAllPermutation(res,nums, new ArrayList(),visited);
+        return res;
+    }
+    void FindAllPermutation(List<List<Integer>> res, int[] nums, List<Integer> curr, boolean [] visited){
+        if(curr.size()==nums.length){
+            res.add(new ArrayList(curr));
+            return;
+        }
+
+        for(int i =0;i<nums.length;i++){
+            if(visited[i]==true)
+            continue;
+            curr.add(nums[i]);
+            visited[i]= true;
+            FindAllPermutation(res,nums,curr,visited);
+            curr.remove(curr.size()-1);
+            visited[i]=false;
+        }
+    }
+}
+_____________________________________________________________
+QUESTION 63:
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        int max = Integer.MIN_VALUE, sum = 0;
+        
+        for(int i=0;i<n;i++){
+            sum += nums[i];
+            max = Math.max(sum,max);
+            
+            if(sum<0) sum = 0;
+        }
+        
+        return max;
+    }
+}
+_______________________________________________________________
+QUESTION 68:
+class Solution {
+    public int lengthOfLastWord(String s) {
+         String [] str = s.split(" ");
+        return str[str.length-1].length() ;
+    }
+}
+________________________________
+QUESTION 71:
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+
+        ListNode temp = new ListNode();
+        temp = head;
+        if(head==null || head.next==null || k==0) return head;
+        int count = 1;
+        while(temp.next!=null){
+            temp = temp.next;
+            count++;
+        }
+
+        temp.next = head;
+        k = k%count;
+        k = count-k;
+
+        while(k-->0){
+            temp = temp.next;
+        }
+        head = temp.next;
+        temp.next = null;
+        return head;
+
+    }
+}
+_________________________________________________________
